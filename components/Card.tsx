@@ -1,8 +1,8 @@
 "use client";
-import { useState, memo } from "react";
+import { memo } from "react";
 import { CiCirclePlus } from "react-icons/ci";
-import { motion, AnimatePresence } from "framer-motion";
-import { IoClose } from "react-icons/io5";
+import { AnimatePresence } from "framer-motion";
+import { SideDrawer } from "./SideDrawer";
 
 interface CardProps {
   size: "small" | "medium" | "large";
@@ -10,6 +10,8 @@ interface CardProps {
   modalContent: React.ReactNode;
   className?: string;
   displayButton?: boolean;
+  isDrawerOpen: boolean;
+  onDrawerOpen: () => void;
 }
 
 export const Card = memo(function Card({
@@ -18,14 +20,13 @@ export const Card = memo(function Card({
   modalContent,
   className = "",
   displayButton = true,
+  isDrawerOpen,
+  onDrawerOpen,
 }: CardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <>
       <div
         className={`
-          ${size === "small" ? "w-1/3" : size === "medium" ? "w-1/2" : "w-full"}
           ${className}
           h-full
           p-6 rounded-3xl
@@ -35,14 +36,16 @@ export const Card = memo(function Card({
           shadow-lg
           will-change-transform
           flex flex-col justify-center  
+          w-full 
+          relative
         `}
       >
         {content}
 
         {displayButton && (
           <button
-            className="absolute bottom-0 right-0 m-4 cursor-pointer"
-            onClick={() => setIsModalOpen(true)}
+            className="absolute bottom-0 right-0 m-4 cursor-pointer hover:scale-110 transition-transform"
+            onClick={onDrawerOpen}
           >
             <CiCirclePlus className="w-10 h-10 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" />
           </button>
@@ -50,15 +53,14 @@ export const Card = memo(function Card({
       </div>
 
       <AnimatePresence mode="wait">
-        {isModalOpen && (
-          <Modal
-            content={content}
+        {isDrawerOpen && (
+          <SideDrawer
+            isOpen={isDrawerOpen}
+            onClose={() => onDrawerOpen()}
             modalContent={modalContent}
-            onClose={() => setIsModalOpen(false)}
           />
         )}
       </AnimatePresence>
     </>
   );
 });
-

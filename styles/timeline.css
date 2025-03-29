@@ -1,0 +1,96 @@
+.vertical-timeline * {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.vertical-timeline {
+  width: 95%;
+  max-width: 1170px;
+  margin: 0 auto;
+  position: relative;
+  padding: 2em 0;
+}
+
+.vertical-timeline::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.vertical-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18px;
+  height: 100%;
+  width: 4px;
+  background: rgb(51 65 85 / 0.5);
+}
+
+.vertical-timeline.vertical-timeline--one-column-right::before {
+  right: 18px;
+  left: unset;
+}
+
+.vertical-timeline-element {
+  position: relative;
+  margin: 2em 0;
+}
+
+.vertical-timeline-element-content {
+  position: relative;
+  margin-left: 60px;
+}
+
+.vertical-timeline-element-date {
+  display: block;
+  position: relative;
+  margin-top: 1rem;
+  margin-left: 60px;
+  color: rgb(148 163 184);
+}
+
+@media only screen and (min-width: 1170px) {
+  .vertical-timeline.vertical-timeline--two-columns {
+    width: 90%;
+  }
+  .vertical-timeline.vertical-timeline--two-columns:before {
+    left: 50%;
+    margin-left: -2px;
+  }
+  
+  .vertical-timeline-element-content {
+    margin-left: 0;
+    width: 44%;
+  }
+
+  .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left) .vertical-timeline-element-content,
+  .vertical-timeline-element.vertical-timeline-element--right .vertical-timeline-element-content {
+    float: right;
+  }
+
+  .vertical-timeline-element-date {
+    position: absolute;
+    width: 100%;
+    left: 124%;
+    top: 0;
+    margin: 0;
+  }
+
+  .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left) .vertical-timeline-element-date,
+  .vertical-timeline-element.vertical-timeline-element--right .vertical-timeline-element-date {
+    left: auto;
+    right: 124%;
+    text-align: right;
+  }
+} 
